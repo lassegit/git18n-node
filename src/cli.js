@@ -4,6 +4,7 @@ const fg = require('fast-glob');
 const getArgs = args => {
   return args.reduce((prev, curr) => {
     const matches = curr.match('--([a-zA-Z0-9]+)=(.*)');
+    console.log({ matches });
     if (matches) {
       prev[matches[1]] = matches[2];
     }
@@ -11,24 +12,24 @@ const getArgs = args => {
   }, {});
 };
 
-async function run(args) {
-  const arguments = getArgs(args);
+async function run(argsCLI) {
+  const args = getArgs(argsCLI);
 
-  if (!arguments.default) {
+  if (!args.default) {
     throw new Error(`
       Please specify a default language using --default=<language>.
       Example: --default=en or --default=en_us
     `);
   }
 
-  if (!arguments.translations) {
+  if (!args.translations) {
     throw new Error(`
       Please specify to which language(s) you want to translate.
       Example: --translations=de,fr,es or --translations=de,de_AT
     `);
   }
 
-  if (!arguments.files) {
+  if (!args.files) {
     throw new Error(`
       Please specify the files to be translated as using --files=<file-glob>.
       A common use case is: --files='src/**/*.{js,jsx,tsx,ts}'.
@@ -37,7 +38,7 @@ async function run(args) {
   }
 
   try {
-    const files = fg.sync(arguments.files, { ignore: arguments.ignore });
+    const files = fg.sync(args.files, { ignore: args.ignore });
     const result = await extract.extract(files, {
       idInterpolationPattern: '[sha512:contenthash:base64:6]',
       extractSourceLocation: true,
