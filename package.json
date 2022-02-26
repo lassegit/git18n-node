@@ -1,0 +1,62 @@
+{
+  "version": "1.0.0",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "engines": {
+    "node": ">=10"
+  },
+  "bin": {
+    "git18n": "bin/git18n.js"
+  },
+  "scripts": {
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test",
+    "lint": "tsdx lint",
+    "prepare": "tsdx build",
+    "size": "size-limit",
+    "analyze": "size-limit --why"
+  },
+  "peerDependencies": {},
+  "husky": {
+    "hooks": {
+      "pre-commit": "tsdx lint"
+    }
+  },
+  "prettier": {
+    "printWidth": 100,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "all"
+  },
+  "name": "git18n",
+  "author": "Lasse",
+  "module": "dist/git18n-node.esm.js",
+  "size-limit": [
+    {
+      "path": "dist/git18n-node.cjs.production.min.js",
+      "limit": "10 KB"
+    },
+    {
+      "path": "dist/git18n-node.esm.js",
+      "limit": "10 KB"
+    }
+  ],
+  "devDependencies": {
+    "@formatjs/cli": "^4.8.2",
+    "@size-limit/preset-small-lib": "^7.0.8",
+    "husky": "^7.0.4",
+    "size-limit": "^7.0.8",
+    "tsdx": "^0.14.1",
+    "tslib": "^2.3.1",
+    "typescript": "^4.5.5"
+  },
+  "dependencies": {
+    "fast-glob": "^3.2.11"
+  }
+}
