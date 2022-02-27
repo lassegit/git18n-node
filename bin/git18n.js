@@ -2,4 +2,4 @@
 
 'use strict';
 
-require('../src/cli.js').run(process.argv.slice(2));
+require('../dist/cli.js').run(process.argv.slice(2));
