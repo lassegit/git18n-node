@@ -24,17 +24,16 @@
   },
   "scripts": {
     "build": "microbundle src/*.ts",
-    "dev": "microbundle watch src/*.ts"
+    "dev": "microbundle watch src/*.ts",
+    "test": "jest"
   },
   "peerDependencies": {},
-  "husky": {
-    "hooks": {
-      "pre-commit": "tsdx lint"
-    }
-  },
   "devDependencies": {
+    "@babel/preset-typescript": "^7.16.7",
     "@formatjs/cli": "^4.8.2",
+    "@types/jest": "^27.4.1",
     "fast-glob": "^3.2.11",
+    "jest": "^27.5.1",
     "microbundle": "^0.14.2"
   },
   "dependencies": {}
