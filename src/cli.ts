@@ -3,6 +3,8 @@
 //
 const extract = require('@formatjs/cli');
 const fg = require('fast-glob');
+const path = require('path');
+const fs = require('fs');
 
 const getArgs = (args?: string[]): { [key: string]: string | undefined } => {
   if (!args || args.length === 0) {
@@ -19,22 +21,50 @@ const getArgs = (args?: string[]): { [key: string]: string | undefined } => {
   }, {});
 };
 
+const getSecretKey = (): string | undefined => {
+  if (process.env.GIT18N_SECRET_API_KEY_ENV) {
+    return process.env.GIT18N_SECRET_API_KEY_ENV;
+  }
+
+  const config = fs.readFileSync(path.resolve(process.cwd(), '.env'), 'utf8');
+
+  if (config) {
+    const configArr = config.split(/\r?\n/).reduce((prev: string, curr: string) => {
+      const [key, value] = curr.split('=');
+      if (key && value) {
+        // @ts-ignore
+        prev[key] = value.replace(/"/g, '');
+      }
+      return prev;
+    }, {});
+
+    return configArr.GIT18N_SECRET_API_KEY;
+  }
+
+  return;
+};
+
 export async function run(cliArgs?: string[]) {
   const args = getArgs(cliArgs);
+  const config = JSON.parse(
+    fs.readFileSync(path.resolve(process.cwd(), 'git18n.config.json'), 'utf8'),
+  );
+  const secretApiKey = getSecretKey();
 
-  if (!args.default) {
-    throw new Error(`
-      Please specify a default language using --default=<language>.
-      Example: --default=en or --default=en_us
-    `);
-  }
+  console.log({ secretApiKey, config });
 
-  if (!args.translations) {
-    throw new Error(`
-      Please specify to which language(s) you want to translate.
-      Example: --translations=de,fr,es or --translations=de,de_AT
-    `);
-  }
+  // if (!args.default) {
+  //   throw new Error(`
+  //     Please specify a default language using --default=<language>.
+  //     Example: --default=en or --default=en_us
+  //   `);
+  // }
+  // if (!args.translations) {
+  //   throw new Error(`
+  //     Please specify to which language(s) you want to translate.
+  //     Example: --translations=de,fr,es or --translations=de,de_AT
+  //   `);
+  // }
 
   if (!args.files) {
     throw new Error(`
@@ -53,6 +83,7 @@ export async function run(cliArgs?: string[]) {
       flatten: false,
       preserveWhitespace: true,
     });
+    return result;
     console.log(JSON.parse(result));
   } catch (error) {
     throw new Error(error as string);
