@@ -5,6 +5,7 @@ const extract = require('@formatjs/cli');
 const fg = require('fast-glob');
 const path = require('path');
 const fs = require('fs');
+// const fetch = require('node-fetch');
 
 const getArgs = (args?: string[]): { [key: string]: string | undefined } => {
   if (!args || args.length === 0) {
@@ -74,6 +75,17 @@ export async function run(cliArgs?: string[]) {
     `);
   }
 
+  // Retrieve translated files web and save to locales
+  // const { translations } = config;
+  // const translationFilesPromises = translations.map(async (locale: string) => {
+  //   return fetch(`https://git18n.com/api/v1/translations/${locale}`);
+  // });
+  // const translationFiles = await Promise.all(translationFilesPromises);
+  // translationFiles.forEach((file, index) => {
+  //   fs.writeFileSync(path.resolve(`locales/${translations[index]}.json`), file.text());
+  // });
+
+  // https://docs.github.com/en/actions/learn-github-actions/environment-variables#default-environment-variables
   try {
     const files = fg.sync(args.files, { ignore: args.ignore });
     const result = await extract.extract(files, {
