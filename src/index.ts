@@ -12,3 +12,6 @@ export function getMessages() {
   // Load all .json files in the translations folder
   return {};
 }
+
+const env = process.env;
+console.log({ env });

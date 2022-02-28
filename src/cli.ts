@@ -83,7 +83,6 @@ export async function run(cliArgs?: string[]) {
       flatten: false,
       preserveWhitespace: true,
     });
-    return result;
     console.log(JSON.parse(result));
   } catch (error) {
     throw new Error(error as string);
