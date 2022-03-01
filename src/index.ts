@@ -50,7 +50,7 @@ async function getAndWriteLocales(translations: string[]) {
     // const githubUser = 'git18n';
     // const githubRepo = 'git18n-translations';
     // const url = `https://git18n.com/api/v1/translations/${githubUser}/${githubRepo}/${locale}`;
-    return fetch(`https://jsonplaceholder.typicode.com/users?locale=${locale}`);
+    return fetch(`https://jsonplaceholder.typicode.com/posts/1?locale=${locale}`);
   });
 
   Promise.all(translationFilesPromises)
@@ -59,7 +59,7 @@ async function getAndWriteLocales(translations: string[]) {
       data.forEach((file, index) => {
         fs.writeFileSync(
           path.resolve(`./node_modules/git18n/locales/${translations[index]}.json`),
-          JSON.stringify(file),
+          JSON.stringify(file, null, 2),
         );
       });
     })
