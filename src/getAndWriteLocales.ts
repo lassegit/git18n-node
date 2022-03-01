@@ -2,6 +2,9 @@ const path = require('path');
 const fs = require('fs');
 const fetch = require('node-fetch');
 
+/**
+ * Retrieve translated files web and save to locales
+ */
 export async function getAndWriteLocales(translations: string[]) {
   const translationFilesPromises = translations.map(async (locale: string) => {
     // const githubUser = 'git18n';

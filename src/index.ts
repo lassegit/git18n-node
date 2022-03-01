@@ -1,7 +1,6 @@
 //
 // CLI implementation
 //
-
 import { getAndWriteLocales } from './getAndWriteLocales';
 import { getCLIArgs } from './getCLIArgs';
 import { getSecretAPIKey } from './getSecretAPIKey';
@@ -34,6 +33,14 @@ export async function run(cliArgs?: string[]) {
     `);
   }
 
-  // Retrieve translated files web and save to locales
   getAndWriteLocales(config.translations);
+
+  //
+  // Run via Github Actions
+  //
+
+  // If is run on PR, compare the translations and comment on PR
+  // if () {}
+
+  // If is run on master, push new defaultLanguage git18n site
 }
