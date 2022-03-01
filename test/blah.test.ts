@@ -1,7 +1,7 @@
-import { getMessages } from '../src';
+import { run } from '../src';
 
 describe('blah', () => {
   it('works', () => {
-    expect(getMessages()).toEqual({});
+    expect(typeof run).toEqual('function');
   });
 });

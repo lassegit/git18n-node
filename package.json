@@ -3,14 +3,8 @@
   "author": "Lasse",
   "version": "1.0.0",
   "license": "MIT",
-  "source": "src/index.ts",
-  "exports": {
-    "require": "./dist/index.cjs",
-    "default": "./dist/index.modern.js"
-  },
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.module.js",
-  "unpkg": "./dist/index.umd.js",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
   "files": [
     "dist",
     "src"
@@ -18,23 +12,47 @@
   "engines": {
     "node": ">=10"
   },
-  "bin": {
-    "git18n": "bin/git18n.js"
-  },
   "scripts": {
-    "build": "microbundle src/*.ts",
-    "dev": "microbundle watch src/*.ts --compress false",
-    "test": "jest"
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test",
+    "lint": "tsdx lint",
+    "prepare": "tsdx build",
+    "size": "size-limit",
+    "analyze": "size-limit --why"
   },
   "peerDependencies": {},
-  "devDependencies": {
-    "@babel/preset-typescript": "^7.16.7",
-    "@formatjs/cli": "^4.8.2",
-    "@types/jest": "^27.4.1",
-    "fast-glob": "^3.2.11",
-    "jest": "^27.5.1",
-    "microbundle": "^0.14.2",
-    "node-fetch": "2.6.7"
+  "husky": {
+    "hooks": {
+      "pre-commit": "tsdx lint"
+    }
   },
-  "dependencies": {}
+  "prettier": {
+    "printWidth": 100,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "all"
+  },
+  "module": "dist/index.esm.js",
+  "size-limit": [
+    {
+      "path": "dist/index.cjs.production.min.js",
+      "limit": "10 KB"
+    },
+    {
+      "path": "dist/index.esm.js",
+      "limit": "10 KB"
+    }
+  ],
+  "devDependencies": {
+    "@size-limit/preset-small-lib": "^7.0.8",
+    "husky": "^7.0.4",
+    "size-limit": "^7.0.8",
+    "tsdx": "^0.14.1",
+    "tslib": "^2.3.1",
+    "typescript": "^4.6.2",
+    "@formatjs/cli": "^4.8.2",
+    "fast-glob": "^3.2.11",
+    "node-fetch": "2.6.7"
+  }
 }
