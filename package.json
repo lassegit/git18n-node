@@ -23,7 +23,7 @@
   },
   "scripts": {
     "build": "microbundle src/*.ts",
-    "dev": "microbundle watch src/*.ts",
+    "dev": "microbundle watch src/*.ts --compress false",
     "test": "jest"
   },
   "peerDependencies": {},

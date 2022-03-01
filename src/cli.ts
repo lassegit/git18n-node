@@ -5,7 +5,7 @@ const extract = require('@formatjs/cli');
 const fg = require('fast-glob');
 const path = require('path');
 const fs = require('fs');
-// const fetch = require('node-fetch');
+const fetch = require('node-fetch');
 
 const getArgs = (args?: string[]): { [key: string]: string | undefined } => {
   if (!args || args.length === 0) {
@@ -45,14 +45,36 @@ const getSecretKey = (): string | undefined => {
   return;
 };
 
+async function getAndWriteLocales(translations: string[]) {
+  const translationFilesPromises = translations.map(async (locale: string) => {
+    // const githubUser = 'git18n';
+    // const githubRepo = 'git18n-translations';
+    // const url = `https://git18n.com/api/v1/translations/${githubUser}/${githubRepo}/${locale}`;
+    return fetch(`https://jsonplaceholder.typicode.com/users?locale=${locale}`);
+  });
+
+  Promise.all(translationFilesPromises)
+    .then((responses) => Promise.all(responses.map((r) => r.json())))
+    .then((data) => {
+      data.forEach((file, index) => {
+        fs.writeFileSync(
+          path.resolve(`./node_modules/git18n/locales/${translations[index]}.json`),
+          JSON.stringify(file),
+        );
+      });
+    })
+    .catch((error) => {
+      throw new Error(error);
+    });
+}
+
 export async function run(cliArgs?: string[]) {
   const args = getArgs(cliArgs);
   const config = JSON.parse(
     fs.readFileSync(path.resolve(process.cwd(), 'git18n.config.json'), 'utf8'),
   );
   const secretApiKey = getSecretKey();
-
-  console.log({ secretApiKey, config });
+  console.log({ secretApiKey });
 
   // if (!args.default) {
   //   throw new Error(`
@@ -76,14 +98,7 @@ export async function run(cliArgs?: string[]) {
   }
 
   // Retrieve translated files web and save to locales
-  // const { translations } = config;
-  // const translationFilesPromises = translations.map(async (locale: string) => {
-  //   return fetch(`https://git18n.com/api/v1/translations/${locale}`);
-  // });
-  // const translationFiles = await Promise.all(translationFilesPromises);
-  // translationFiles.forEach((file, index) => {
-  //   fs.writeFileSync(path.resolve(`locales/${translations[index]}.json`), file.text());
-  // });
+  getAndWriteLocales(config.translations);
 
   // https://docs.github.com/en/actions/learn-github-actions/environment-variables#default-environment-variables
   try {
@@ -95,7 +110,8 @@ export async function run(cliArgs?: string[]) {
       flatten: false,
       preserveWhitespace: true,
     });
-    console.log(JSON.parse(result));
+    return result;
+    // console.log(JSON.parse(result));
   } catch (error) {
     throw new Error(error as string);
   }
