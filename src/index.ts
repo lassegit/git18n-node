@@ -5,15 +5,12 @@ import { getAndWriteLocales } from './getAndWriteLocales';
 import { getCLIArgs } from './getCLIArgs';
 import { getSecretAPIKey } from './getSecretAPIKey';
 import { getConfig } from './getConfig';
-import { getGithubInfo } from './getGithubInfo';
 
 export async function run(cliArgs?: string[]) {
   const args = getCLIArgs(cliArgs);
   const config = getConfig();
   const secretApiKey = getSecretAPIKey();
   console.log({ secretApiKey });
-
-  console.log(getGithubInfo());
 
   // if (!args.defaultLocale) {
   //   throw new Error(`
