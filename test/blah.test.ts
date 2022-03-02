@@ -5,10 +5,8 @@ describe('blah', () => {
     // run runs the test
     run();
 
-    const ev = JSON.parse(fs.readFileSync(process.env.GITHUB_EVENT_PATH, 'utf8'));
-    console.log(ev);
-    const prNum = ev?.pull_request?.number;
-    console.log(prNum);
+    const event = JSON.parse(fs.readFileSync(process.env.GITHUB_EVENT_PATH, 'utf8'));
+    console.log(event);
 
     expect(typeof run).toEqual('function');
   });
