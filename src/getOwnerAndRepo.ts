@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-export const getGithubInfo = (): { repo: string; owner: string } => {
+export const getOwnerAndRepo = (): { repo: string; owner: string } => {
   const file = fs.readFileSync(path.resolve(process.cwd(), './.git/config'), 'utf8');
   const matches = file.match(/url = (.*)/);
 
