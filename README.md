@@ -10,4 +10,17 @@
 }
 ```
 
-_Boilerplate based on [Microbundle](https://github.com/developit/microbundle)_
+## Translation format
+
+```json
+{
+  "CONTENT-HASH": {
+    "description": "",
+    "defaultMessage": "",
+    "isMerged": "true | false", // When build all "true" can potentially be removed, since it means it isn't a new translation not merged yet. "false" means this is a translation used in an open PR
+    "file": "pages/index.js"
+  }
+}
+```
+
+_Boilerplate based on [TSDX](https://github.com/jaredpalmer/tsdx)_
