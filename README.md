@@ -18,7 +18,8 @@
     "description": "",
     "defaultMessage": "",
     "isMerged": "true | false", // When build all "true" can potentially be removed, since it means it isn't a new translation not merged yet. "false" means this is a translation used in an open PR
-    "file": "pages/index.js"
+    "file": "pages/index.js",
+    "line": "number" 
   }
 }
 ```
