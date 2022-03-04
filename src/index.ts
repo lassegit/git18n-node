@@ -6,9 +6,11 @@ import { getCLIArgs } from './getCLIArgs';
 // import { getConfig } from './getConfig';
 import { getOwnerAndRepo } from './getOwnerAndRepo';
 import { getPRNumber } from './getPRNumber';
+import { getAndWriteLocales } from './fetch/getAndWriteLocales';
 
 export async function run(cliArgs?: string[]) {
   const args = getCLIArgs(cliArgs);
+  const { owner, repo } = getOwnerAndRepo();
   console.log({ args });
   console.log(getOwnerAndRepo());
 
@@ -31,6 +33,9 @@ export async function run(cliArgs?: string[]) {
   //     Or multiple folders can be specified: --files='(components|pages)/**/*.{js,jsx,tsx,ts}'
   //   `);
   // }
+
+  const data = await getAndWriteLocales({ owner, repo, locales: ['en', 'de'] });
+  console.log({ data });
 
   // Pull translations from server so user can test locally
   // const config = getConfig();
