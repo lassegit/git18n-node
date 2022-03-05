@@ -29,10 +29,10 @@ export function run(cliArgs?: string[]) {
 
       const hasLocaleAdditions = Object.values(additions).some(item => item > 0);
       if (hasLocaleAdditions) {
-        const data = await createPRComment({ additions, prNumber });
+        const { showThrowError, throwError } = await createPRComment({ additions, prNumber });
 
-        if (data.showThrowError) {
-          throw new Error(data.error);
+        if (showThrowError) {
+          throw new Error(throwError);
         }
       }
     })();

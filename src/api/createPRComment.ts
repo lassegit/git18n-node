@@ -7,10 +7,13 @@ type Props = {
 
 type Result = {
   showThrowError: boolean; // Will prevent PR to be merged
-  error: string;
+  throwError: string;
 };
 
+const getGithubVars = () => Object.keys(process.env).filter(key => key.startsWith('GITHUB_'));
+
 export const createPRComment = async ({ additions, prNumber }: Props): Promise<Result> => {
-  const body = { additions, prNumber };
+  const githubVars = getGithubVars();
+  const body = { additions, prNumber, githubVars };
   return fetch('/create-pr-comment', { method: 'POST', body });
 };

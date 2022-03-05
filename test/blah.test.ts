@@ -1,4 +1,3 @@
-// import { run } from '../src';
 const fs = require('fs');
 
 describe('blah', () => {
