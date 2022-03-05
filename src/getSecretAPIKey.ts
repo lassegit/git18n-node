@@ -1,25 +1,35 @@
 const fs = require('fs');
 const path = require('path');
 
+const { GIT18N_SECRET_PROJECT_KEY } = process.env;
+
 export const getSecretAPIKey = (): string | undefined => {
-  if (process.env.GIT18N_SECRET_API_KEY_ENV) {
-    return process.env.GIT18N_SECRET_API_KEY_ENV;
+  if (GIT18N_SECRET_PROJECT_KEY) {
+    return GIT18N_SECRET_PROJECT_KEY;
   }
 
-  const config = fs.readFileSync(path.resolve(process.cwd(), '.env'), 'utf8');
+  const file = path.resolve(process.cwd(), '.env');
 
-  if (config) {
-    const configArr = config.split(/\r?\n/).reduce((prev: string, curr: string) => {
-      const [key, value] = curr.split('=');
-      if (key && value) {
-        // @ts-ignore
-        prev[key] = value.replace(/"/g, '');
-      }
-      return prev;
-    }, {});
-
-    return configArr.GIT18N_SECRET_API_KEY;
+  if (!fs.existsSync(file)) {
+    throw new Error(`Couldn't find .env: ${file}`);
   }
 
-  return;
+  try {
+    const result = fs.readFileSync(file, 'utf8');
+    const lines = result.toString().split('\n');
+    const line = lines.find((line: string) => {
+      const match = line.match(/^([^=:#]+?)[=:](.*)/);
+      return match && match[1].includes('GIT18N_SECRET_PROJECT_KEY');
+    });
+
+    const variable = line
+      .match(/^([^=:#]+?)[=:](.*)/)[2]
+      .trim()
+      .replace(/"/g, '')
+      .replace(/'/g, '');
+
+    return variable;
+  } catch (error) {
+    throw error;
+  }
 };
