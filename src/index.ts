@@ -18,7 +18,6 @@ export function run(cliArgs?: string[]) {
   })();
 
   const prNumber = getPRNumber() || 13;
-
   if (prNumber) {
     const { fileGlob, ignore } = getCLIArgs(cliArgs);
     (async () => {
@@ -32,7 +31,11 @@ export function run(cliArgs?: string[]) {
 
       const hasLocaleAdditions = Object.values(additions).some(item => item > 0);
       if (hasLocaleAdditions) {
-        createPRComment({ additions, prNumber });
+        const data = await createPRComment({ additions, prNumber });
+
+        if (data.showThrowError) {
+          throw new Error(data.error);
+        }
       }
     })();
   }
