@@ -1,4 +1,6 @@
 import { Result as ExtractResult } from './extractDefault';
+const fs = require('fs');
+const path = require('path');
 
 type Props = {
   locale: string;
@@ -6,7 +8,13 @@ type Props = {
 };
 
 export const getLocaleAdditions = ({ locale, extractedDefault }: Props): number => {
-  const localeFile = require(`../locales/${locale}.json`);
+  const file = path.resolve(__dirname, `../../locales/${locale}.json`);
+
+  if (!fs.existsSync(file)) {
+    throw new Error(`Couldn't find locale file: ${file}`);
+  }
+
+  const localeFile = JSON.parse(fs.readFileSync(file, 'utf8'));
 
   const additions = Object.keys(extractedDefault).reduce(
     (acc: { [key: string]: {} }, curr: string) => {
