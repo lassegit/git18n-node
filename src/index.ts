@@ -4,13 +4,19 @@
 import { getOwnerAndRepo } from './utils/getOwnerAndRepo';
 import { getAndWriteLocales } from './api/getAndWriteLocales';
 import { getConfig } from './utils/getConfig';
+import { getPRNumber } from './utils/getPRNumber';
 
 export function run(_cliArgs?: string[]) {
   const { locales } = getConfig();
   const { owner, repo } = getOwnerAndRepo();
+
+  // Fetch locales from server
   (async () => {
     await getAndWriteLocales({ owner, repo, locales });
   })();
+
+  const prNumber = getPRNumber();
+  console.log(`PR number: ${prNumber}`);
 
   // Pull translations from server so user can test locally
   // const config = getConfig();
