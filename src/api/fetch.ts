@@ -1,5 +1,5 @@
 const nodefetch = require('node-fetch');
-import { getSecretAPIKey } from '../getSecretAPIKey';
+import { getSecretAPIKey } from '../utils/getSecretAPIKey';
 
 // const URL_ROOT = '';
 // const IS_PROD = process.env.NODE_ENV === 'production';
