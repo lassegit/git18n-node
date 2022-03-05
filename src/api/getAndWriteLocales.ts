@@ -1,5 +1,5 @@
 const fs = require('fs');
-import path from 'path';
+const path = require('path');
 import { fetch } from './fetch';
 
 type Props = {

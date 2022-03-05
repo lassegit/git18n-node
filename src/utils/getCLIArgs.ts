@@ -4,7 +4,7 @@ type Result = {
 };
 
 const defaultResult: Result = {
-  fileGlob: '(components|pages|src|modules)/**/*.{ts,tsx,js,jsx}',
+  fileGlob: '(components|containers|pages|src|modules)/**/*.{ts,tsx,js,jsx}',
   ignore: '**/*.d.ts',
 };
 
