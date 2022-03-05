@@ -16,10 +16,10 @@ export function run(cliArgs?: string[]) {
 
   const prNumber = getPRNumber();
   if (prNumber) {
-    const { fileGlob, ignore } = getCLIArgs(cliArgs);
+    const { files, ignore } = getCLIArgs(cliArgs);
 
     (async () => {
-      const extractedDefault = await extractDefault({ fileGlob, ignore });
+      const extractedDefault = await extractDefault({ fileGlob: files, ignore });
 
       const additions = locales.reduce((acc: { [key: string]: number }, locale) => {
         const additions = getLocaleAdditions({ locale, extractedDefault });
