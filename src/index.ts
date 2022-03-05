@@ -14,6 +14,7 @@ export function run(cliArgs?: string[]) {
     await getAndWriteLocales({ locales });
   })();
 
+  // Runs in the CI pipeline
   const prNumber = getPRNumber();
   if (prNumber) {
     const { files, ignore } = getCLIArgs(cliArgs);
