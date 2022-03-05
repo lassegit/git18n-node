@@ -23,7 +23,7 @@ export const getAndWriteLocales = async ({ locales }: Props) => {
         data.forEach(({ locale, content }) => {
           fs.writeFileSync(
             path.resolve(`./node_modules/git18n/locales/${locale}.json`),
-            JSON.stringify(content, null, 2),
+            JSON.stringify(content),
             'utf-8',
             (error: any) => {
               if (error) {
