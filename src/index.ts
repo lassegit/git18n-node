@@ -1,20 +1,16 @@
 //
 // CLI implementation
 //
-// import { getAndWriteLocales } from './getAndWriteLocales';
-// import { getCLIArgs } from './getCLIArgs';
-// import {getConfig } from './getConfig';
-import { getPRNumber } from './getPRNumber';
 import { getOwnerAndRepo } from './utils/getOwnerAndRepo';
 import { getAndWriteLocales } from './api/getAndWriteLocales';
+import { getConfig } from './utils/getConfig';
 
-export async function run(_cliArgs?: string[]) {
-  // const args = getCLIArgs(cliArgs);
-  // console.log({ args });
-
+export function run(_cliArgs?: string[]) {
+  const { locales } = getConfig();
   const { owner, repo } = getOwnerAndRepo();
-  const data = await getAndWriteLocales({ owner, repo, locales: ['en', 'de'] });
-  console.log({ data });
+  (async () => {
+    await getAndWriteLocales({ owner, repo, locales });
+  })();
 
   // Pull translations from server so user can test locally
   // const config = getConfig();
@@ -40,16 +36,16 @@ export async function run(_cliArgs?: string[]) {
   // When a PR is merged add new translations (don't remove)
   // When on master branch, extract required IDs, download json files containing all translations and pull out the needed ones, generating new translation files
 
-  const prNumber = await getPRNumber();
+  // const prNumber = await getPRNumber();
   // If is run on PR, compare the translations and comment on PR
-  if (prNumber) {
-    console.log('!!!');
-    console.log(
-      `Running on PR #${prNumber.number} and on ${process.env.GITHUB_REPOSITORY}, ${process.env.GITHUB_REF_NAME}`,
-    );
-    console.log('!!!');
-    return;
-  }
+  // if (prNumber) {
+  //   console.log('!!!');
+  //   console.log(
+  //     `Running on PR #${prNumber.number} and on ${process.env.GITHUB_REPOSITORY}, ${process.env.GITHUB_REF_NAME}`,
+  //   );
+  //   console.log('!!!');
+  //   return;
+  // }
 
   // If is run on master, push new defaultLanguage git18n site
   // Compare all the generated IDs to those server side and remove any not used any more (status="merged")

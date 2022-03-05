@@ -2,10 +2,13 @@ import fs from 'fs';
 import path from 'path';
 
 type Result = {
-  defaultLanguage: string;
+  defaultLocale: string;
   locales: string[];
 };
 
+/**
+ * Retrieve the default locale and the list of locales from the config file.
+ */
 export const getConfig = (): Result => {
   const file = path.resolve(process.cwd(), 'git18n.config.json');
 
@@ -16,10 +19,10 @@ export const getConfig = (): Result => {
   try {
     const result = JSON.parse(fs.readFileSync(file, 'utf8'));
 
-    if (!result.defaultLanguage) {
+    if (!result.defaultLocale) {
       throw new Error(`
-        Missing defaultLanguage in config file: ${file}.
-        Example: defaultLanguage: 'en'
+        Missing defaultLocale in config file: ${file}.
+        Example: defaultLocale: 'en'
       `);
     }
 
@@ -32,6 +35,6 @@ export const getConfig = (): Result => {
 
     return result;
   } catch (error) {
-    throw new Error(error);
+    throw error;
   }
 };
