@@ -2,17 +2,15 @@
 // CLI implementation
 //
 // import { getAndWriteLocales } from './getAndWriteLocales';
-import { getCLIArgs } from './getCLIArgs';
+// import { getCLIArgs } from './getCLIArgs';
 // import { getConfig } from './getConfig';
-import { getOwnerAndRepo } from './getOwnerAndRepo';
 import { getPRNumber } from './getPRNumber';
-import { getAndWriteLocales } from './fetch/getAndWriteLocales';
+import { getOwnerAndRepo } from './utils/getOwnerAndRepo';
+import { getAndWriteLocales } from './api/getAndWriteLocales';
 
-export async function run(cliArgs?: string[]) {
-  const args = getCLIArgs(cliArgs);
-  const { owner, repo } = getOwnerAndRepo();
-  console.log({ args });
-  console.log(getOwnerAndRepo());
+export async function run(_cliArgs?: string[]) {
+  // const args = getCLIArgs(cliArgs);
+  // console.log({ args });
 
   // if (!args.defaultLocale) {
   //   throw new Error(`
@@ -34,6 +32,7 @@ export async function run(cliArgs?: string[]) {
   //   `);
   // }
 
+  const { owner, repo } = getOwnerAndRepo();
   const data = await getAndWriteLocales({ owner, repo, locales: ['en', 'de'] });
   console.log({ data });
 
@@ -50,19 +49,18 @@ export async function run(cliArgs?: string[]) {
   //
   // Run via Github Actions
   //
-  const GITHUB_ACTIONS = process.env.GITHUB_ACTIONS; // Potentially CIRCLE_PR_NUMBER https://circleci.com/docs/2.0/env-vars/#built-in-environment-variables
-  if (!GITHUB_ACTIONS) {
-    console.log('!!!');
-    console.log('Not running in Github Actions, nothing more to do.');
-    console.log('!!!');
-    return;
-  }
-
-  const prNumber = await getPRNumber();
+  // const GITHUB_ACTIONS = process.env.GITHUB_ACTIONS; // Potentially CIRCLE_PR_NUMBER https://circleci.com/docs/2.0/env-vars/#built-in-environment-variables
+  // if (!GITHUB_ACTIONS) {
+  //   console.log('!!!');
+  //   console.log('Not running in Github Actions, nothing more to do.');
+  //   console.log('!!!');
+  //   return;
+  // }
 
   // When a PR is merged add new translations (don't remove)
   // When on master branch, extract required IDs, download json files containing all translations and pull out the needed ones, generating new translation files
 
+  const prNumber = await getPRNumber();
   // If is run on PR, compare the translations and comment on PR
   if (prNumber) {
     console.log('!!!');
@@ -75,7 +73,7 @@ export async function run(cliArgs?: string[]) {
 
   // If is run on master, push new defaultLanguage git18n site
   // Compare all the generated IDs to those server side and remove any not used any more (status="merged")
-  console.log('!!!');
-  console.log(`Running build on master!!!, ${process.env.GITHUB_REF_NAME}`);
-  console.log('!!!');
+  // console.log('!!!');
+  // console.log(`Running build on master!!!, ${process.env.GITHUB_REF_NAME}`);
+  // console.log('!!!');
 }
