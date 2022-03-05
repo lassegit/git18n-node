@@ -18,5 +18,5 @@ export const createPRComment = async ({ additions, prNumber }: Props): Promise<R
   const circleCIVars = getCircleCIVars();
 
   const body = { additions, prNumber, githubVars, circleCIVars };
-  return fetch('/create-pr-comment', { method: 'POST', body });
+  return fetch('/post-pr-comment', { method: 'POST', body });
 };

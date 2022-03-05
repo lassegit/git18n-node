@@ -15,7 +15,7 @@ export const getAndWriteLocales = async ({ locales }: Props) => {
   const localePromises = locales.map(async (locale: string) => {
     return {
       locale,
-      content: await fetch(`https://jsonplaceholder.typicode.com/posts/1?locale=${locale}`),
+      content: await fetch(`/get-locales/${locale}`, { method: 'GET' }),
     };
   });
 
