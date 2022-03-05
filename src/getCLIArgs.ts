@@ -1,4 +1,8 @@
-export const getCLIArgs = (args?: string[]): { [key: string]: string | undefined } => {
+type Result = {
+  [key: string]: string | undefined;
+};
+
+export const getCLIArgs = (args?: string[]): Result => {
   if (!args || args.length === 0) {
     return {};
   }

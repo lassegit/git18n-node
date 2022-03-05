@@ -3,7 +3,7 @@
 //
 // import { getAndWriteLocales } from './getAndWriteLocales';
 // import { getCLIArgs } from './getCLIArgs';
-// import { getConfig } from './getConfig';
+// import {getConfig } from './getConfig';
 import { getPRNumber } from './getPRNumber';
 import { getOwnerAndRepo } from './utils/getOwnerAndRepo';
 import { getAndWriteLocales } from './api/getAndWriteLocales';
@@ -11,26 +11,6 @@ import { getAndWriteLocales } from './api/getAndWriteLocales';
 export async function run(_cliArgs?: string[]) {
   // const args = getCLIArgs(cliArgs);
   // console.log({ args });
-
-  // if (!args.defaultLocale) {
-  //   throw new Error(`
-  //     Please specify a default language using --default=<language>.
-  //     Example: --default=en or --default=en_us
-  //   `);
-  // }
-  // if (!args.locales) {
-  //   throw new Error(`
-  //     Please specify to which language(s) you want to translate.
-  //     Example: --translations=de,fr,es or --translations=de,de_AT
-  //   `);
-  // }
-  // if (!args.files) {
-  //   throw new Error(`
-  //     Please specify the files to be translated as using --files=<file-glob>.
-  //     A common use case is: --files='src/**/*.{js,jsx,tsx,ts}'.
-  //     Or multiple folders can be specified: --files='(components|pages)/**/*.{js,jsx,tsx,ts}'
-  //   `);
-  // }
 
   const { owner, repo } = getOwnerAndRepo();
   const data = await getAndWriteLocales({ owner, repo, locales: ['en', 'de'] });
