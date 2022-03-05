@@ -36,6 +36,7 @@
     "@formatjs/cli": "^4.8.2",
     "fast-glob": "^3.2.11",
     "husky": "^7.0.4",
+    "mock-fs": "^5.1.2",
     "node-fetch": "2.6.7",
     "size-limit": "^7.0.8",
     "tsdx": "^0.14.1",
