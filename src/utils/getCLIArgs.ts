@@ -1,13 +1,19 @@
 type Result = {
-  [key: string]: string | undefined;
+  fileGlob: string;
+  ignore?: string;
+};
+
+const defaultResult: Result = {
+  fileGlob: '(components|pages|src|modules)/**/*.{ts,tsx,js,jsx}',
+  ignore: '**/*.d.ts',
 };
 
 export const getCLIArgs = (args?: string[]): Result => {
   if (!args || args.length === 0) {
-    return {};
+    return defaultResult;
   }
 
-  return args.reduce((prev, curr) => {
+  const result = args.reduce((prev, curr) => {
     const matches = curr.match('--([a-zA-Z0-9]+)=(.*)');
     if (matches) {
       // @ts-ignore
@@ -15,4 +21,6 @@ export const getCLIArgs = (args?: string[]): Result => {
     }
     return prev;
   }, {});
+
+  return { ...result, ...defaultResult };
 };

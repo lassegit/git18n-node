@@ -1,15 +1,24 @@
 const extract = require('@formatjs/cli');
 const fg = require('fast-glob');
-const path = require('path');
-const fs = require('fs');
 
 type Props = {
   fileGlob: string;
   ignore?: string;
 };
 
-const extractTranslations = async ({ fileGlob, ignore }: Props) => {
-  // https://docs.github.com/en/actions/learn-github-actions/environment-variables#default-environment-variables
+export type Result = {
+  [key: string]: {
+    defaultMessage: string;
+    description?: string;
+    file: string;
+    col?: number;
+    end?: number;
+    line?: number;
+    start?: number;
+  };
+};
+
+export const extractDefault = async ({ fileGlob, ignore }: Props): Promise<Result> => {
   try {
     const files = fg.sync(fileGlob, { ignore: ignore });
     const result = await extract.extract(files, {
@@ -19,8 +28,7 @@ const extractTranslations = async ({ fileGlob, ignore }: Props) => {
       flatten: false,
       preserveWhitespace: true,
     });
-    // console.log(JSON.parse(result));
-    return result;
+    return JSON.parse(result);
   } catch (error) {
     throw new Error(error as string);
   }

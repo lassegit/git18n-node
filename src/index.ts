@@ -4,8 +4,12 @@
 import { getAndWriteLocales } from './api/getAndWriteLocales';
 import { getConfig } from './utils/getConfig';
 import { getPRNumber } from './utils/getPRNumber';
+import { getCLIArgs } from './utils/getCLIArgs';
+import { extractDefault } from './utils/extractDefault';
+import { getLocaleAdditions } from './utils/getLocaleAdditions';
+import { createPRComment } from './api/createPRComment';
 
-export function run(_cliArgs?: string[]) {
+export function run(cliArgs?: string[]) {
   const { locales } = getConfig();
 
   // Fetch locales from server
@@ -13,8 +17,25 @@ export function run(_cliArgs?: string[]) {
     await getAndWriteLocales({ locales });
   })();
 
-  const prNumber = getPRNumber();
-  console.log(`PR number: ${prNumber}`);
+  const prNumber = getPRNumber() || 13;
+
+  if (prNumber) {
+    const { fileGlob, ignore } = getCLIArgs(cliArgs);
+    (async () => {
+      const extractedDefault = await extractDefault({ fileGlob, ignore });
+
+      const additions = locales.reduce((acc: { [key: string]: number }, locale) => {
+        const additions = getLocaleAdditions({ locale, extractedDefault });
+        acc[locale] = additions;
+        return acc;
+      }, {});
+
+      const hasLocaleAdditions = Object.values(additions).some(item => item > 0);
+      if (hasLocaleAdditions) {
+        createPRComment({ additions, prNumber });
+      }
+    })();
+  }
 
   // Pull translations from server so user can test locally
   // const config = getConfig();
