@@ -1,24 +1,30 @@
 const nodefetch = require('node-fetch');
-import { getSecretAPIKey } from '../getSecretAPIKey';
+import { getSecretAPIKey } from '../utils/getSecretAPIKey';
 
-// const URL_ROOT = '';
-// const IS_PROD = process.env.NODE_ENV === 'production';
-// const URL_ROOT = IS_PROD
-//   ? 'https://git18n.com/api/git18n-node/v1'
-//   : 'http://localhost:3000/api/git18n-node/v1';
+const IS_PROD = process.env.NODE_ENV === 'production';
+const URL_ROOT = IS_PROD
+  ? 'https://git18n.com/api/git18n-node/v1'
+  : 'http://localhost:3000/api/git18n-node/v1';
 const TOKEN = getSecretAPIKey();
 
-export const fetch = async <T>(url: string, options?: { headers?: {} }): Promise<T> => {
-  const parsedUrl = `${url}`;
+type Options = {
+  method: 'GET' | 'POST' | 'PUT' | 'DELETE';
+  headers?: {};
+  body?: {};
+};
+
+export const fetch = async <T>(url: string, options?: Options): Promise<T> => {
+  const parsedUrl = `${URL_ROOT}${url}`;
   const parsedOptions = {
     ...options,
     headers: {
       Accept: 'application/json',
-      'Content-Type': 'application/json',
       Authorization: `token ${TOKEN}`,
+      'Content-Type': 'application/json',
       'X-Client-Type': 'git18n-node',
       ...options?.headers,
     },
+    body: JSON.stringify(options?.body),
   };
 
   return nodefetch(parsedUrl, parsedOptions)

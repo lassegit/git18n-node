@@ -3,21 +3,19 @@ const path = require('path');
 import { fetch } from './fetch';
 
 type Props = {
-  repo: string;
-  owner: string;
   locales: string[];
 };
 
 /**
  * Fetches locales from the server and writes them to the locales folder
  */
-export const getAndWriteLocales = async ({ repo, owner, locales }: Props) => {
-  console.log('Fetching locales from server...', repo, owner, locales);
+export const getAndWriteLocales = async ({ locales }: Props) => {
+  console.log('Fetching locales from server...', locales);
 
   const localePromises = locales.map(async (locale: string) => {
     return {
       locale,
-      content: await fetch(`https://jsonplaceholder.typicode.com/posts/1?locale=${locale}`),
+      content: await fetch(`/get-locales/${locale}`, { method: 'GET' }),
     };
   });
 
