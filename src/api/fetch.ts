@@ -14,8 +14,8 @@ export const fetch = async <T>(url: string, options?: { headers?: {} }): Promise
     ...options,
     headers: {
       Accept: 'application/json',
-      'Content-Type': 'application/json',
       Authorization: `token ${TOKEN}`,
+      'Content-Type': 'application/json',
       'X-Client-Type': 'git18n-node',
       ...options?.headers,
     },
