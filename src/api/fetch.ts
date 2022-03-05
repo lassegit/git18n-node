@@ -9,7 +9,9 @@ const TOKEN = getSecretAPIKey();
 
 type Options = {
   method: 'GET' | 'POST' | 'PUT' | 'DELETE';
-  headers?: {};
+  headers?: {
+    [key: string]: string;
+  };
   body?: {};
 };
 

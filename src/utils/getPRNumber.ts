@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-const { GITHUB_ACTIONS, GITHUB_EVENT_PATH, CIRCLE_PR_NUMBER } = process.env;
+const { GITHUB_EVENT_PATH, CIRCLE_PR_NUMBER } = process.env;
 
 /**
  * Get the PR number from the environment.
@@ -8,7 +8,7 @@ const { GITHUB_ACTIONS, GITHUB_EVENT_PATH, CIRCLE_PR_NUMBER } = process.env;
  */
 export const getPRNumber = (): number | undefined => {
   // Github
-  if (GITHUB_ACTIONS) {
+  if (GITHUB_EVENT_PATH) {
     try {
       const event = JSON.parse(fs.readFileSync(GITHUB_EVENT_PATH, 'utf8'));
       return event.number;
