@@ -4,7 +4,6 @@
 import { getAndWriteLocales } from './api/getAndWriteLocales';
 import { getConfig } from './utils/getConfig';
 import { getPRNumber } from './utils/getPRNumber';
-import { getSecretAPIKey } from './getSecretAPIKey';
 
 export function run(_cliArgs?: string[]) {
   const { locales } = getConfig();
@@ -13,8 +12,6 @@ export function run(_cliArgs?: string[]) {
   (async () => {
     await getAndWriteLocales({ locales });
   })();
-
-  getSecretAPIKey();
 
   const prNumber = getPRNumber();
   console.log(`PR number: ${prNumber}`);
