@@ -11,9 +11,12 @@ type Result = {
 };
 
 const getGithubVars = () => Object.keys(process.env).filter(key => key.startsWith('GITHUB_'));
+const getCircleCIVars = () => Object.keys(process.env).filter(key => key.startsWith('CIRCLE_'));
 
 export const createPRComment = async ({ additions, prNumber }: Props): Promise<Result> => {
   const githubVars = getGithubVars();
-  const body = { additions, prNumber, githubVars };
+  const circleCIVars = getCircleCIVars();
+
+  const body = { additions, prNumber, githubVars, circleCIVars };
   return fetch('/create-pr-comment', { method: 'POST', body });
 };
