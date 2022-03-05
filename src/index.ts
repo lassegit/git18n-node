@@ -29,9 +29,9 @@ export function run(cliArgs?: string[]) {
 
       const hasLocaleAdditions = Object.values(additions).some(item => item > 0);
       if (hasLocaleAdditions) {
-        const { showThrowError, throwError } = await createPRComment({ additions, prNumber });
+        const { shouldThrowError, throwError } = await createPRComment({ additions, prNumber });
 
-        if (showThrowError) {
+        if (shouldThrowError) {
           throw new Error(throwError);
         }
       }

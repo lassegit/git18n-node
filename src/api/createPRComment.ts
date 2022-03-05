@@ -6,7 +6,7 @@ type Props = {
 };
 
 type Result = {
-  showThrowError: boolean; // Will prevent PR to be merged
+  shouldThrowError: boolean; // Will prevent PR to be merged
   throwError: string;
 };
 
