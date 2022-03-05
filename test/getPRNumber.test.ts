@@ -1,5 +1,6 @@
 import { getPRNumber } from '../src/utils/getPRNumber';
 
 test('Running locally without any PR number', () => {
-  expect(getPRNumber()).toBe(undefined);
+  const prNumer = getPRNumber();
+  expect(typeof prNumer).toBe('undefined' || 'number');
 });
