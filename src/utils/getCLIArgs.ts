@@ -1,16 +1,17 @@
 type Result = {
-  fileGlob: string;
+  files: string;
   ignore?: string;
 };
 
-const defaultResult: Result = {
-  fileGlob: '(components|containers|pages|src|modules)/**/*.{ts,tsx,js,jsx}',
+export const defaultArgs: Result = {
+  files: '(components|containers|pages|src|modules)/**/*.{ts,tsx,js,jsx}',
   ignore: '**/*.d.ts',
 };
 
+// args: ['--files=(components|pages)/**/*.ts*', '--ignore=**/*.d.ts']
 export const getCLIArgs = (args?: string[]): Result => {
   if (!args || args.length === 0) {
-    return defaultResult;
+    return defaultArgs;
   }
 
   const result = args.reduce((prev, curr) => {
@@ -22,5 +23,5 @@ export const getCLIArgs = (args?: string[]): Result => {
     return prev;
   }, {});
 
-  return { ...result, ...defaultResult };
+  return { ...defaultArgs, ...result };
 };
