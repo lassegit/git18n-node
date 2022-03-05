@@ -10,8 +10,6 @@ type Props = {
  * Fetches locales from the server and writes them to the locales folder
  */
 export const getAndWriteLocales = async ({ locales }: Props) => {
-  console.log('Fetching locales from server...', locales);
-
   const localePromises = locales.map(async (locale: string) => {
     return {
       locale,
