@@ -8,6 +8,7 @@ import { createPRComment } from './api/createPRComment';
 
 export function run(cliArgs?: string[]) {
   const { locales } = getConfig();
+  // Todo: Add minimalist for parsing args https://www.npmjs.com/package/minimist
 
   (async () => {
     // Fetch locales from server
@@ -20,10 +21,16 @@ export function run(cliArgs?: string[]) {
     const { files, ignore } = getCLIArgs(cliArgs);
 
     (async () => {
-      const extractedDefault = await extractDefault({ fileGlob: files, ignore });
+      const extractedDefault = await extractDefault({
+        fileGlob: files,
+        ignore,
+      });
 
       const additions = locales.reduce((acc: { [key: string]: number }, locale) => {
-        const additions = getLocaleAdditions({ locale, extractedDefault });
+        const additions = getLocaleAdditions({
+          locale,
+          extractedDefault,
+        });
         acc[locale] = additions;
         return acc;
       }, {});

@@ -8,6 +8,11 @@ Running `npm run git18n --files='(components|pages)/**/*.ts*' --ignore='**/*.d.t
 - add new translations to server by comparing translation key _(could throw error if unable, so it can be translated?)_
 - adds link to PR with link to translations for specific translation key
 
+## API
+
+- GET `/api/cli/locales` retrieves all translations for accessToken
+- POST `/api/cli/locales` { locale, locales } creates/updates translations
+
 ## `git18n.config.json` format
 
 ```json
@@ -32,6 +37,3 @@ Running `npm run git18n --files='(components|pages)/**/*.ts*' --ignore='**/*.d.t
 ```
 
 _Boilerplate based on [TSDX](https://github.com/jaredpalmer/tsdx)_
-
-
-
