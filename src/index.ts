@@ -12,7 +12,7 @@ export function run(cliArgs?: string[]) {
 
   (async () => {
     // Fetch locales from server
-    await getAndWriteLocales({ locales });
+    await getAndWriteLocales();
   })();
 
   // Runs in the CI pipeline

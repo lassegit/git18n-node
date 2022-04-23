@@ -1,42 +1,28 @@
 const fs = require('fs');
 const path = require('path');
 import { fetch } from './fetch';
-
-type Props = {
-  locales: string[];
-};
+import { getSecretAPIKey } from '../utils/getSecretAPIKey';
 
 /**
  * Fetches locales from the server and writes them to the locales folder
  */
-export const getAndWriteLocales = async ({ locales }: Props) => {
-  const localePromises = locales.map(async (locale: string) => {
-    return {
-      locale,
-      content: await fetch(`/get-locales/${locale}`, { method: 'GET' }),
-    };
-  });
+export const getAndWriteLocales = async () => {
+  const accessToken = getSecretAPIKey();
+  const url = `/${accessToken}`;
 
-  return new Promise((resolve, reject) => {
-    Promise.all(localePromises)
-      .then(data => {
-        data.forEach(({ locale, content }) => {
-          fs.writeFileSync(
-            path.resolve(`./node_modules/git18n/locales/${locale}.json`),
-            JSON.stringify(content),
-            'utf-8',
-            (error: any) => {
-              if (error) {
-                reject(new Error(error));
-              }
-            },
-          );
-        });
+  return new Promise(async (resolve, reject) => {
+    try {
+      const { repo, locales } = await fetch(url, { method: 'GET' });
 
-        resolve(data);
-      })
-      .catch(error => {
-        reject(new Error(error));
+      locales.forEach((item: { locale: string; locales: {} }) => {
+        const { locale, locales } = item;
+        const filePath = path.join(__dirname, '../locales', `${locale}.json`);
+        fs.writeFileSync(filePath, JSON.stringify(locales, null, 2));
       });
+
+      resolve({ repo, locales });
+    } catch (error) {
+      reject(error);
+    }
   });
 };
