@@ -14,10 +14,16 @@ export const getAndWriteLocales = async () => {
     try {
       const { repo, locales } = await fetch(url, { method: 'GET' });
 
-      locales.forEach((item: { locale: string; locales: {} }) => {
+      locales.forEach((item: { locale: string; locales: [{ id: string; t?: string }] }) => {
         const { locale, locales } = item;
         const filePath = path.join(__dirname, '../locales', `${locale}.json`);
-        fs.writeFileSync(filePath, JSON.stringify(locales, null, 2));
+
+        const parsedLocales = locales.reduce((acc: { [key: string]: any }, curr) => {
+          acc[curr.id] = curr.t;
+          return acc;
+        }, {});
+
+        fs.writeFileSync(filePath, JSON.stringify(parsedLocales, null, 2));
       });
 
       resolve({ repo, locales });

@@ -1,10 +1,12 @@
 const extract = require('@formatjs/cli');
 const fg = require('fast-glob');
 
-type Props = {
-  fileGlob: string;
-  ignore?: string;
-};
+import { getCLIArgs } from './getCLIArgs';
+
+// type Props = {
+//   fileGlob: string;
+//   ignore?: string;
+// };
 
 export type Result = {
   [key: string]: {
@@ -18,7 +20,9 @@ export type Result = {
   };
 };
 
-export const extractDefault = async ({ fileGlob, ignore }: Props): Promise<Result> => {
+export const getExtractedLocales = async (cliArgs: string[] | undefined): Promise<Result> => {
+  const { files: fileGlob, ignore } = getCLIArgs(cliArgs);
+
   try {
     const files = fg.sync(fileGlob, { ignore: ignore });
     const result = await extract.extract(files, {

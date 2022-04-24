@@ -2,8 +2,8 @@ const fs = require('fs');
 const path = require('path');
 
 type Result = {
-  defaultLocale: string;
-  locales: string[];
+  defaultLocale?: string;
+  locales?: string[];
 };
 
 /**

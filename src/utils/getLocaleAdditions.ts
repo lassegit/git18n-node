@@ -1,4 +1,4 @@
-import { Result as ExtractResult } from './extractDefault';
+import { Result as ExtractResult } from './getExtractedLocales';
 const fs = require('fs');
 const path = require('path');
 
@@ -11,7 +11,8 @@ export const getLocaleAdditions = ({ locale, extractedDefault }: Props): number 
   const file = path.resolve(__dirname, `../../locales/${locale}.json`);
 
   if (!fs.existsSync(file)) {
-    throw new Error(`Couldn't find locale file: ${file}`);
+    // If no previous locale file exists, all extracted translations are new
+    return Object.keys(extractedDefault).length;
   }
 
   const localeFile = JSON.parse(fs.readFileSync(file, 'utf8'));
