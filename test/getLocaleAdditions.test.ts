@@ -14,11 +14,3 @@ test('Returns additions and locale', () => {
   expect(getLocaleAdditions({ locale, extractedDefault })).toBe(1);
   mock.restore();
 });
-
-test('Missing locale file throws error', () => {
-  mock({ locales: {} });
-  expect(() => {
-    getLocaleAdditions({ locale, extractedDefault });
-  }).toThrowError(/Couldn't find locale file/);
-  mock.restore();
-});
