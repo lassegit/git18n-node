@@ -25,8 +25,6 @@ export const getNewLocales = ({ extractedLocales }: Props): Result => {
     return {};
   }
 
-  const loc = {};
-
   // const newLocales = locales.reduce((acc, curr) => {
   //   const file = path.resolve(__dirname, `../../locales/${curr}.json`);
   //   if (!fs.existsSync(file)) {
