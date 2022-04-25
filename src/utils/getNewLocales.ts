@@ -2,22 +2,22 @@
 // const path = require('path');
 import { getConfig } from './getConfig';
 
-type Props = {
-  extractedLocales: {
-    [key: string]: {
-      defaultMessage: string;
-      description?: string;
-      file: string;
-      col?: number;
-      end?: number;
-      line?: number;
-      start?: number;
-    };
-  };
-};
+// type Props = {
+//   extractedLocales: {
+//     [key: string]: {
+//       defaultMessage: string;
+//       description?: string;
+//       file: string;
+//       col?: number;
+//       end?: number;
+//       line?: number;
+//       start?: number;
+//     };
+//   };
+// };
 type Result = {};
 
-export const getNewLocales = ({ extractedLocales }: Props): Result => {
+export const getNewLocales = (): Result => {
   const { locales } = getConfig();
 
   if (!locales) {
