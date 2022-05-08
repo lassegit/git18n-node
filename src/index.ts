@@ -4,13 +4,13 @@ import { getExtractedLocales } from './utils/getExtractedLocales';
 
 export function run() {
   (async () => {
-    // Fetch locales from server
-    await getAndWriteLocales();
-
     // Extract translations
     const extractedLocales = await getExtractedLocales();
 
     // Send extracted locales to server
     await sendExtractedToServer({ extractedLocales });
+
+    // Fetch locales from server
+    await getAndWriteLocales({ extractedLocales });
   })();
 }

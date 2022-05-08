@@ -3,10 +3,18 @@ const path = require('path');
 import { fetch } from './fetch';
 import { getSecretAPIKey } from '../utils/getSecretAPIKey';
 
+type Props = {
+  extractedLocales: {
+    [key: string]: {
+      defaultMessage: string;
+    };
+  };
+};
+
 /**
  * Fetches locales from the server and writes them to the locales folder
  */
-export const getAndWriteLocales = async () => {
+export const getAndWriteLocales = async ({ extractedLocales }: Props) => {
   const accessToken = getSecretAPIKey();
   const url = `/${accessToken}`;
 
@@ -24,7 +32,9 @@ export const getAndWriteLocales = async () => {
         }
 
         const parsedLocales = locales.reduce((acc: { [key: string]: any }, curr) => {
-          acc[curr.id] = curr.t;
+          // Use defaultMessage from primary language as fallback
+          acc[curr.id] = curr.t || extractedLocales[curr.id].defaultMessage;
+
           return acc;
         }, {});
 
