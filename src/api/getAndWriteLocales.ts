@@ -3,20 +3,19 @@ const path = require('path');
 import { fetch } from './fetch';
 import { getSecretAPIKey } from '../utils/getSecretAPIKey';
 
-type Props = {
-  extractedLocales: {
-    [key: string]: {
-      defaultMessage: string;
-    };
-  };
-};
+const LOCALE_DIR = path.join(process.cwd(), '.locales');
 
 /**
  * Fetches locales from the server and writes them to the locales folder
  */
-export const getAndWriteLocales = async ({ extractedLocales }: Props) => {
+export const getAndWriteLocales = async () => {
   const accessToken = getSecretAPIKey();
   const url = `/${accessToken}`;
+
+  // Create default .locale dir if doesn't exist
+  if (!fs.existsSync(LOCALE_DIR)) {
+    fs.mkdirSync(LOCALE_DIR);
+  }
 
   return new Promise(async (resolve, reject) => {
     try {
@@ -24,7 +23,7 @@ export const getAndWriteLocales = async ({ extractedLocales }: Props) => {
 
       locales.forEach((item: { locale: string; locales: [{ id: string; t?: string }] }) => {
         const { locale, locales } = item;
-        const filePath = path.join(__dirname, '../locales', `${locale}.json`);
+        const filePath = path.join(process.cwd(), '.locales', `${locale}.json`);
 
         if (!locales || !locales.length) {
           fs.writeFileSync(filePath, JSON.stringify({}, null, 2));
@@ -32,9 +31,7 @@ export const getAndWriteLocales = async ({ extractedLocales }: Props) => {
         }
 
         const parsedLocales = locales.reduce((acc: { [key: string]: any }, curr) => {
-          // Use defaultMessage from primary language as fallback
-          acc[curr.id] = curr.t || extractedLocales[curr.id].defaultMessage;
-
+          acc[curr.id] = curr.t;
           return acc;
         }, {});
 
