@@ -1,7 +1,10 @@
 const nodefetch = require('node-fetch');
+const minimist = require('minimist');
+const { local } = minimist(process.argv.slice(2));
 
-const IS_PROD = process.env.NODE_ENV === 'production';
-const URL_ROOT = IS_PROD ? 'https://git18n.com/api/cli' : 'http://localhost:3000/api/cli';
+// CLI argument "--local true" will use localhost:3000
+const URL_ROOT = local ? 'http://localhost:3000/api/cli' : 'https://cli.git18n.com/api/cli';
+
 const DEFAULT_HEADERS = {
   Accept: 'application/json',
   'Content-Type': 'application/json',
