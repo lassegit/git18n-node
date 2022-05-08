@@ -2,15 +2,13 @@ import { getAndWriteLocales } from './api/getAndWriteLocales';
 import { sendExtractedToServer } from './api/sendExtractedToServer';
 import { getExtractedLocales } from './utils/getExtractedLocales';
 
-// Todo: Add minimalist for parsing args https://www.npmjs.com/package/minimist
-
-export function run(cliArgs?: string[]) {
+export function run() {
   (async () => {
     // Fetch locales from server
     await getAndWriteLocales();
 
     // Extract translations
-    const extractedLocales = await getExtractedLocales(cliArgs);
+    const extractedLocales = await getExtractedLocales();
 
     // Send extracted locales to server
     await sendExtractedToServer({ extractedLocales });
