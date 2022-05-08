@@ -18,6 +18,11 @@ export const getAndWriteLocales = async () => {
         const { locale, locales } = item;
         const filePath = path.join(__dirname, '../locales', `${locale}.json`);
 
+        if (!locales || !locales.length) {
+          fs.writeFileSync(filePath, JSON.stringify({}, null, 2));
+          return;
+        }
+
         const parsedLocales = locales.reduce((acc: { [key: string]: any }, curr) => {
           acc[curr.id] = curr.t;
           return acc;

@@ -3,11 +3,6 @@ const fg = require('fast-glob');
 
 import { getCLIArgs } from './getCLIArgs';
 
-// type Props = {
-//   fileGlob: string;
-//   ignore?: string;
-// };
-
 export type Result = {
   [key: string]: {
     defaultMessage: string;
