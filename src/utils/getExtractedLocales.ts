@@ -7,9 +7,9 @@ export type Result = {
     defaultMessage: string;
     description?: string;
     file: string;
+    line: number;
     col?: number;
     end?: number;
-    line?: number;
     start?: number;
   };
 };
