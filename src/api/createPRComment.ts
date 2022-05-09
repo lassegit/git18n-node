@@ -1,7 +1,7 @@
 import { fetch } from './fetch';
 
 type Props = {
-  additions: { [key: string]: number };
+  additions: Record<string, number>;
   prNumber: number;
 };
 
