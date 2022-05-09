@@ -4,14 +4,8 @@
 
 Running `npm run git18n --files '(components|pages)/**/*.ts*' --ignore '**/*.d.ts'`:
 
-- fetches current translations from the server
-- add new translations to server by comparing translation key _(could throw error if unable, so it can be translated?)_
-- adds link to PR with link to translations for specific translation key
-
-## API
-
-- GET `/api/cli/locales` retrieves all translations for accessToken
-- POST `/api/cli/locales` { locale, locales } creates/updates translations
+- fetches translations from the server and writes to `.locales` folder
+- extract and send any new translations to server
 
 ## Translation format
 
