@@ -19,23 +19,24 @@ export const getAndWriteLocales = async () => {
 
   return new Promise(async (resolve, reject) => {
     try {
-      const { repo, locales } = await fetch(url, { method: 'GET' });
+      const { repo, locales = [] } = await fetch(url, { method: 'GET' });
 
       locales.forEach((item: { locale: string; locales: [{ id: string; t?: string }] }) => {
         const { locale, locales } = item;
-        const filePath = path.join(process.cwd(), '.locales', `${locale}.json`);
+        const filePath = path.join(LOCALE_DIR, `${locale}.json`);
 
         if (!locales || !locales.length) {
-          fs.writeFileSync(filePath, JSON.stringify({}, null, 2));
+          fs.writeFileSync(filePath, JSON.stringify({}));
           return;
         }
 
+        // Format locale file for compilation
         const parsedLocales = locales.reduce((acc: { [key: string]: any }, curr) => {
           acc[curr.id] = curr.t;
           return acc;
         }, {});
 
-        fs.writeFileSync(filePath, JSON.stringify(parsedLocales, null, 2));
+        fs.writeFileSync(filePath, JSON.stringify(parsedLocales));
       });
 
       resolve({ repo, locales });
