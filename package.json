@@ -5,6 +5,9 @@
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
+  "bin": {
+    "git18n": "bin/git18n.js"
+  },
   "files": [
     "dist",
     "src"
