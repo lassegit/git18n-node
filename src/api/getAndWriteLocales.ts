@@ -26,8 +26,6 @@ export const getAndWriteLocales = async () => {
     try {
       const { repo, locales = [] } = await fetch<Response>(url, { method: 'GET' });
 
-      console.log(locales);
-
       locales.forEach(item => {
         const { locale, locales } = item;
         const filePath = path.join(LOCALE_DIR, `${locale}.json`);
