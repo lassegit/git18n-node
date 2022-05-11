@@ -15,6 +15,11 @@ type Props = {
   };
 };
 
+type Response = {
+  message: string;
+  status: number;
+};
+
 export const sendExtractedToServer = async ({ extractedLocales }: Props) => {
   const accessToken = getSecretAPIKey();
   const url = `/${accessToken}`;
@@ -22,7 +27,7 @@ export const sendExtractedToServer = async ({ extractedLocales }: Props) => {
 
   return new Promise(async (resolve, reject) => {
     try {
-      const result = await fetch(url, { method: 'POST', body });
+      const result = await fetch<Response>(url, { method: 'POST', body });
       resolve(result);
     } catch (error) {
       reject(error);

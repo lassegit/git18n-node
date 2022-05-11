@@ -5,6 +5,11 @@ import { getSecretAPIKey } from '../utils/getSecretAPIKey';
 
 const LOCALE_DIR = path.join(process.cwd(), '.locales');
 
+type Response = {
+  repo: {};
+  locales: [{ locale: string; locales?: [{ id: string; t?: string }] }];
+};
+
 /**
  * Fetches locales from the server and writes them to the locales folder
  */
@@ -19,9 +24,11 @@ export const getAndWriteLocales = async () => {
 
   return new Promise(async (resolve, reject) => {
     try {
-      const { repo, locales = [] } = await fetch(url, { method: 'GET' });
+      const { repo, locales = [] } = await fetch<Response>(url, { method: 'GET' });
 
-      locales.forEach((item: { locale: string; locales: [{ id: string; t?: string }] }) => {
+      console.log(locales);
+
+      locales.forEach(item => {
         const { locale, locales } = item;
         const filePath = path.join(LOCALE_DIR, `${locale}.json`);
 
@@ -31,8 +38,8 @@ export const getAndWriteLocales = async () => {
         }
 
         // Format locale file for compilation
-        const parsedLocales = locales.reduce((acc: { [key: string]: any }, curr) => {
-          acc[curr.id] = curr.t;
+        const parsedLocales = locales.reduce((acc: { [key: string]: string }, curr) => {
+          acc[curr.id] = curr.t || '';
           return acc;
         }, {});
 
