@@ -1,4 +1,10 @@
-# Git18n NPM package
+# Git18n
+
+Lightweight and easy to use module that handles translations management for developers using `react-intl` (formatjs.io). As simple as:
+
+- run `yarn add -D git18n`
+- get access token on https://git18n.com and set wanted languages
+- run `yarn git18n` when extracting translations to server and adding them during build
 
 ## Installation
 
