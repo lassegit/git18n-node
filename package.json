@@ -1,7 +1,7 @@
 {
   "name": "git18n",
   "author": "Lasse T. <lassetange@gmail.com>",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -23,13 +23,15 @@
     "lint": "tsdx lint",
     "prepare": "tsdx build"
   },
-  "devDependencies": {
+  "dependencies": {
     "@formatjs/cli": "^4.8.4",
     "fast-glob": "^3.2.11",
-    "husky": "^7.0.4",
     "minimist": "^1.2.6",
+    "node-fetch": "2.6.7"
+  },
+  "devDependencies": {
+    "husky": "^7.0.4",
     "mock-fs": "^5.1.2",
-    "node-fetch": "2.6.7",
     "size-limit": "^7.0.8",
     "tsdx": "^0.14.1",
     "tslib": "^2.4.0",
