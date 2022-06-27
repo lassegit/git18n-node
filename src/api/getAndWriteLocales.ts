@@ -2,8 +2,13 @@ const fs = require('fs');
 const path = require('path');
 import { fetch } from './fetch';
 import { getSecretAPIKey } from '../utils/getSecretAPIKey';
+import { ExtractedLocales } from '../utils/types';
 
 const LOCALE_DIR = path.join(process.cwd(), '.locales');
+
+type Props = {
+  extractedLocales: ExtractedLocales;
+};
 
 type Response = {
   repo: {};
@@ -13,7 +18,7 @@ type Response = {
 /**
  * Fetches locales from the server and writes them to the locales folder
  */
-export const getAndWriteLocales = async () => {
+export const getAndWriteLocales = async ({ extractedLocales }: Props) => {
   const accessToken = getSecretAPIKey();
   const url = `/${accessToken}`;
 
@@ -37,7 +42,13 @@ export const getAndWriteLocales = async () => {
 
         // Format locale file for compilation
         const parsedLocales = locales.reduce((acc: { [key: string]: string }, curr) => {
+          // Don't add it to locale unless it exists in present extraction
+          if (!extractedLocales[curr.id]) {
+            return acc;
+          }
+
           acc[curr.id] = curr.t || '';
+
           return acc;
         }, {});
 

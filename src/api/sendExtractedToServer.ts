@@ -1,20 +1,11 @@
 import { fetch } from './fetch';
 import { getSecretAPIKey } from '../utils/getSecretAPIKey';
+import { ExtractedLocales } from '../utils/types';
 const minimist = require('minimist');
 const { clean } = minimist(process.argv.slice(2));
 
 type Props = {
-  extractedLocales: {
-    [key: string]: {
-      defaultMessage: string;
-      description?: string;
-      file: string;
-      col?: number;
-      end?: number;
-      line?: number;
-      start?: number;
-    };
-  };
+  extractedLocales: ExtractedLocales;
 };
 
 type Response = {

@@ -15,7 +15,7 @@ export function run() {
 
       // Fetch locales from server
       console.log('Fetching locales from server...');
-      await getAndWriteLocales();
+      await getAndWriteLocales({ extractedLocales });
     } catch (error) {
       console.error(error);
       process.exit(1);
