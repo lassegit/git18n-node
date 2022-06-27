@@ -1,18 +1,11 @@
 import { fetch } from './fetch';
 import { getSecretAPIKey } from '../utils/getSecretAPIKey';
+import { ExtractedLocales } from '../utils/types';
+const minimist = require('minimist');
+const { clean } = minimist(process.argv.slice(2));
 
 type Props = {
-  extractedLocales: {
-    [key: string]: {
-      defaultMessage: string;
-      description?: string;
-      file: string;
-      col?: number;
-      end?: number;
-      line?: number;
-      start?: number;
-    };
-  };
+  extractedLocales: ExtractedLocales;
 };
 
 type Response = {
@@ -23,7 +16,7 @@ type Response = {
 export const sendExtractedToServer = async ({ extractedLocales }: Props) => {
   const accessToken = getSecretAPIKey();
   const url = `/${accessToken}`;
-  const body = { locales: extractedLocales };
+  const body = { locales: extractedLocales, clean };
 
   return new Promise(async (resolve, reject) => {
     try {

@@ -1,18 +1,9 @@
 const extract = require('@formatjs/cli');
 const fg = require('fast-glob');
 const minimist = require('minimist');
+import { ExtractedLocales } from './types';
 
-export type Result = {
-  [key: string]: {
-    defaultMessage: string;
-    description?: string;
-    file: string;
-    line: number;
-    col?: number;
-    end?: number;
-    start?: number;
-  };
-};
+export type Result = ExtractedLocales;
 
 const DEFAULT_FILES_ARG = '(components|containers|pages|src|modules)/**/*.{ts,tsx,js,jsx}';
 const DEFAULT_IGNORE_ARG = '**/*.d.ts';

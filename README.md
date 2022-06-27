@@ -1,10 +1,4 @@
-# Git18n
-
-Lightweight and easy to use module that handles translations management for developers using `react-intl` (formatjs.io). As simple as:
-
-- run `yarn add -D git18n`
-- get access token on https://git18n.com and set wanted languages
-- run `yarn git18n` when extracting translations to server and adding them during build
+Lightweight utility that automates translations management using `react-intl` (FormatJS).
 
 ## Installation
 
@@ -20,28 +14,27 @@ npm install --save-dev git18n
 
 ## How to use:
 
-Running `npm run git18n --files 'src/**/*.ts*' --ignore '**/*.d.ts'`:
+1. Retrieve access token on [git18n.com](https://git18n.com) and set as environment variable (`GIT18N_SECRET_PROJECT_KEY="your-app-key"`)
 
-- fetches translations from the server and writes to `.locales` folder in the root of the directory
-- extract and send any new translations to server
-
-An easy integration is to add it to the `package.json` scripts:
+2. Add `translate` command to `package.json` (`--clean` argument ensures that old translations are automatically removed):
 
 ```json
 "scripts": {
-  "translate": "git18n --files 'src/**/*.js*'"
+  "translate": "git18n --files 'src/**/*.js*' --clean"
 }
 ```
 
-Default values for `--files` and `--ignore` is:
+Default values for `--files` and `--ignore` are:
 
 ```
 const DEFAULT_FILES_ARG = '(components|containers|pages|src|modules)/**/*.{ts,tsx,js,jsx}';
 const DEFAULT_IGNORE_ARG = '**/*.d.ts';
 ```
 
-Then run `yarn translate` to add new translations (when submitting a pull request) and when deploying (as part of the build, e.g. `yarn translate && yarn build`).
+3. Run `yarn translate` to add new translations (i.e. when submitting a pull request) and when deploying (as part of the build process, e.g. `yarn translate && yarn build`).
 
-There is no need to `yarn translate` during development, which is likely done in `defaultLocale`. Furthermore `defaultLocale` (usually English) is used as fallback when translation isn't provided.
+There is no need to `yarn translate` during development since it just uses the `defaultMessage` as fallback.
+
+**Note: Full docs: https://docs.git18n.com**
 
 _Please submit questions or bugs to: https://github.com/lassegit/git18n-node_
