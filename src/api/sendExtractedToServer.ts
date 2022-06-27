@@ -1,5 +1,7 @@
 import { fetch } from './fetch';
 import { getSecretAPIKey } from '../utils/getSecretAPIKey';
+const minimist = require('minimist');
+const { clean } = minimist(process.argv.slice(2));
 
 type Props = {
   extractedLocales: {
@@ -23,7 +25,7 @@ type Response = {
 export const sendExtractedToServer = async ({ extractedLocales }: Props) => {
   const accessToken = getSecretAPIKey();
   const url = `/${accessToken}`;
-  const body = { locales: extractedLocales };
+  const body = { locales: extractedLocales, clean };
 
   return new Promise(async (resolve, reject) => {
     try {
