@@ -1,8 +1,11 @@
 const fs = require('fs');
 const path = require('path');
+const minimist = require('minimist');
 import { fetch } from './fetch';
 import { getSecretAPIKey } from '../utils/getSecretAPIKey';
 import { ExtractedLocales } from '../utils/types';
+
+const { prettyLocale } = minimist(process.argv.slice(2));
 
 const LOCALE_DIR = path.join(process.cwd(), '.locales');
 
@@ -52,7 +55,10 @@ export const getAndWriteLocales = async ({ extractedLocales }: Props) => {
           return acc;
         }, {});
 
-        fs.writeFileSync(filePath, JSON.stringify(parsedLocales));
+        // Option to pretty print locale files
+        const replacer = undefined;
+        const space = prettyLocale ? 2 : undefined;
+        fs.writeFileSync(filePath, JSON.stringify(parsedLocales, replacer, space));
       });
 
       resolve({ repo, locales });
