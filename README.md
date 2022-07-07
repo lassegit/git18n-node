@@ -31,10 +31,10 @@ const DEFAULT_FILES_ARG = '(components|containers|pages|src|modules)/**/*.{ts,ts
 const DEFAULT_IGNORE_ARG = '**/*.d.ts';
 ```
 
-Additional arguemnts:
+Additional arguments:
 
 - `--clean` removes translation IDs not present in code
-- `--prettyLocale` formats locale files with linebreaks
+- `--prettyLocale` formats locale files with line-breaks
 
 3. Run `yarn translate` to add new translations (i.e. when submitting a pull request) and when deploying (as part of the build process, e.g. `yarn translate && yarn build`).
 
