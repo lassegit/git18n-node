@@ -56,7 +56,7 @@ export const getAndWriteLocales = async ({ extractedLocales }: Props) => {
         }, {});
 
         // Option to pretty print locale files
-        const replacer = null;
+        const replacer = undefined;
         const space = prettyLocale ? 2 : undefined;
         fs.writeFileSync(filePath, JSON.stringify(parsedLocales, replacer, space));
       });
