@@ -25,7 +25,7 @@
     "prepare": "tsdx build"
   },
   "dependencies": {
-    "@formatjs/cli": "^4.8.4",
+    "@formatjs/cli": "5.0.2",
     "fast-glob": "^3.2.11",
     "minimist": "^1.2.6",
     "node-fetch": "2.6.7"
