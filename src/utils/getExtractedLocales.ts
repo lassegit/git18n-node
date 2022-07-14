@@ -1,4 +1,4 @@
-const extract = require('@formatjs/cli');
+import { extract } from '@formatjs/cli';
 const fg = require('fast-glob');
 const minimist = require('minimist');
 import { ExtractedLocales } from './types';
@@ -17,7 +17,7 @@ export const getExtractedLocales = async (): Promise<Result> => {
     const files = fg.sync(fileGlob, { ignore: ignore });
 
     // CLI arguments: https://formatjs.io/docs/tooling/cli/#extraction
-    const result = await extract.extract(files, {
+    const result = await extract(files, {
       idInterpolationPattern: '[sha512:contenthash:base64:6]',
       extractSourceLocation: true,
       removeDefaultMessage: false,
