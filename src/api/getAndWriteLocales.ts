@@ -1,9 +1,9 @@
-const fs = require('fs');
-const path = require('path');
-const minimist = require('minimist');
 import { fetch } from './fetch';
 import { getSecretAPIKey } from '../utils/getSecretAPIKey';
 import { ExtractedLocales } from '../utils/types';
+const fs = require('fs');
+const path = require('path');
+const minimist = require('minimist');
 
 const { prettyLocale } = minimist(process.argv.slice(2));
 
@@ -15,7 +15,7 @@ type Props = {
 
 type Response = {
   repo: {};
-  locales: [{ locale: string; locales?: [{ id: string; t?: string }] }];
+  locales: Array<{ locale: string; locales?: Array<{ id: string; t?: string }> }>;
 };
 
 /**

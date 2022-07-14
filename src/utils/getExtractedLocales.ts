@@ -1,7 +1,7 @@
 import { extract } from '@formatjs/cli';
+import { ExtractedLocales } from './types';
 const fg = require('fast-glob');
 const minimist = require('minimist');
-import { ExtractedLocales } from './types';
 
 export type Result = ExtractedLocales;
 
