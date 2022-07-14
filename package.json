@@ -1,7 +1,7 @@
 {
   "name": "git18n",
   "author": "Lasse T. <lassetange@gmail.com>",
-  "version": "1.0.7",
+  "version": "2.0.0",
   "homepage": "https://github.com/lassegit/git18n-node",
   "license": "MIT",
   "main": "dist/index.js",

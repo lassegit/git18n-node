@@ -12,6 +12,8 @@ Or with npm:
 npm install --save-dev git18n
 ```
 
+(Node version 16.5 or higher).
+
 ## How to use:
 
 1. Retrieve access token on [git18n.com](https://git18n.com) and set as environment variable (`GIT18N_SECRET_PROJECT_KEY="your-app-key"`)
