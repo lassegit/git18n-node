@@ -25,9 +25,9 @@
     "prepare": "tsdx build"
   },
   "dependencies": {
-    "@formatjs/cli": "^5.0.2",
-    "@formatjs/icu-messageformat-parser": "^2.1.4",
-    "@formatjs/ts-transformer": "^3.9.9",
+    "@formatjs/cli": "5.0.2",
+    "@formatjs/icu-messageformat-parser": "2.1.4",
+    "@formatjs/ts-transformer": "3.9.9",
     "fast-glob": "^3.2.11",
     "fs-extra": "^10.1.0",
     "json-stable-stringify": "^1.0.1",
