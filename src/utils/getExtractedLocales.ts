@@ -1,4 +1,4 @@
-import { extract } from '@formatjs/cli';
+import { extract } from '@formatjs/cli-lib';
 import { ExtractedLocales } from './types';
 const fg = require('fast-glob');
 const minimist = require('minimist');
