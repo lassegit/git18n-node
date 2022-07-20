@@ -1,7 +1,7 @@
 {
   "name": "git18n",
   "author": "Lasse T. <lassetange@gmail.com>",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "homepage": "https://github.com/lassegit/git18n-node",
   "license": "MIT",
   "main": "dist/index.js",
@@ -25,7 +25,7 @@
     "prepare": "tsdx build"
   },
   "dependencies": {
-    "@formatjs/cli-lib": "5.0.4",
+    "@formatjs/cli-lib": "5.0.5",
     "fast-glob": "^3.2.11",
     "minimist": "^1.2.6",
     "node-fetch": "2.6.7"
