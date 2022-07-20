@@ -937,10 +937,10 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@formatjs/cli-lib@5.0.4":
-  version "5.0.4"
-  resolved "https://registry.yarnpkg.com/@formatjs/cli-lib/-/cli-lib-5.0.4.tgz#a61cdc5ff6444292ef38f7b7d3d906b36c2f0075"
-  integrity sha512-DT3P3aaSqBOjqPceii2vxutL4bYVfeQeTwJM7527KN9Z0Au5AlnVyErd7DH5yJ/kyvqLojJGDPG2BcWGEf4+yQ==
+"@formatjs/cli-lib@5.0.5":
+  version "5.0.5"
+  resolved "https://registry.yarnpkg.com/@formatjs/cli-lib/-/cli-lib-5.0.5.tgz#345e3a0f988ef8dccc3fb2619e36b014b7da7031"
+  integrity sha512-3uHgrZFtujNdyrhindBjVWCRBeuXDrCqRMUSBNq+jP32lwbRyQCT/xal4j9+cZe7zk/R4Bub2b5K/07WuWKzPA==
   dependencies:
     "@formatjs/icu-messageformat-parser" "2.1.4"
     "@formatjs/ts-transformer" "3.9.9"
